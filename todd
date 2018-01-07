@@ -31,6 +31,7 @@ class ToddHandler(BaseHTTPRequestHandler):
 
 if len(argv) < 3:
     stderr.write('usage: todd port command [arg1 arg2 ...]\n')
+    exit(1)
 
 # Create the server.
 server = TCPServer(('', int(argv[1])), ToddHandler)
