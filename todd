@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from socketserver import TCPServer
 from http.server import BaseHTTPRequestHandler
@@ -29,8 +29,19 @@ class ToddHandler(BaseHTTPRequestHandler):
         # p.wait() call is for. DIE ZOMBIES!!
         p.wait()
 
+def help_text():
+    print("\ntodd repeatedly serves the stdout of a local command over http")
+    print("press Ctrl-C to stop. Otherwise todd will re-run the command on each request\n")
+    print("Examples:")
+    print("Share a file. A coworker can download by visiting http://my-machine:8080/myfile.tar.gz")
+    print(" (if no filename in the url is option, but helpful)")
+    print("    todd 8080 cat myfile.tar.gz\n")
+    print("Share a compressed folder. A coworker can download by visiting http://my-machine:8080/whatever.tar.gz)")
+    print("    todd 8080 tar -cz ~/project/\n")    
+        
 if len(argv) < 3:
     stderr.write('usage: todd port command [arg1 arg2 ...]\n')
+    help_text()
     exit(1)
 
 # Create the server.
